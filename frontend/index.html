@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#0b1d3a" />
+  <title>SheShield — Women Safety App</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/brands.min.css" />
+
+</head>
+<body>
+
+<!-- DESKTOP HEADER -->
+<header class="desk-header">
+  <div class="desk-header-left">
+    <div class="desk-header-logo">
+      <img src="assets/logo.png" alt="SheShield" />
+    </div>
+    <div>
+      <div class="desk-header-title">SheShield</div>
+    </div>
+  </div>
+  <div class="desk-header-right">
+    <button class="desk-header-sos" onclick="triggerSOS()"><i class="fas fa-bell"></i> SOS EMERGENCY</button>
+    <div class="desk-header-avatar" id="desk-avatar" onclick="goTo('profile')">P</div>
+  </div>
+</header>
+
+<div id="app">
+
+  <!-- DESKTOP SIDEBAR -->
+  <nav class="desk-sidebar">
+    <div class="desk-nav-section">
+      <div class="desk-nav-label">Navigation</div>
+      <div class="desk-nav-item active" onclick="goTo('home')" data-desk-nav="home">
+        <span class="desk-nav-icon"><i class="fas fa-house"></i></span><span class="desk-nav-text">Dashboard</span>
+      </div>
+      <div class="desk-nav-item" onclick="goTo('ai')" data-desk-nav="ai">
+        <span class="desk-nav-icon"><i class="fas fa-robot"></i></span><span class="desk-nav-text">AI Safety Check</span>
+      </div>
+      <div class="desk-nav-item" onclick="goTo('map')" data-desk-nav="map">
+        <span class="desk-nav-icon"><i class="fas fa-map"></i></span><span class="desk-nav-text">Safe Route Map</span>
+      </div>
+      <div class="desk-nav-item" onclick="goTo('contacts')" data-desk-nav="contacts">
+        <span class="desk-nav-icon"><i class="fas fa-phone"></i></span><span class="desk-nav-text">Emergency Contacts</span>
+      </div>
+      <div class="desk-nav-item" onclick="goTo('history')" data-desk-nav="history">
+        <span class="desk-nav-icon"><i class="fas fa-clipboard-list"></i></span><span class="desk-nav-text">Safety History</span>
+      </div>
+      <div class="desk-nav-item" onclick="goTo('profile')" data-desk-nav="profile">
+        <span class="desk-nav-icon"><i class="fas fa-user"></i></span><span class="desk-nav-text">My Profile</span>
+      </div>
+    </div>
+    <div class="desk-sidebar-bottom">
+      <div class="desk-helpline-title">Emergency Helplines</div>
+      <a class="desk-helpline-row" href="tel:1090"><span class="desk-helpline-name"><i class="fas fa-venus"></i> Women Help</span><span class="desk-helpline-num">1090</span></a>
+      <a class="desk-helpline-row" href="tel:100"><span class="desk-helpline-name"><i class="fas fa-shield-halved"></i> Police</span><span class="desk-helpline-num">100</span></a>
+      <a class="desk-helpline-row" href="tel:108"><span class="desk-helpline-name"><i class="fas fa-truck-medical"></i> Ambulance</span><span class="desk-helpline-num">108</span></a>
+      <a class="desk-helpline-row" href="tel:101"><span class="desk-helpline-name"><i class="fas fa-fire"></i> Fire</span><span class="desk-helpline-num">101</span></a>
+    </div>
+  </nav>
+
+  <div class="desk-main">
+
+  <!-- ══ SCREEN: AUTH ══ -->
+  <div id="screen-auth" class="screen active">
+    <div class="auth-wrapper">
+      <div class="auth-brand">
+        <div class="auth-brand-icon">
+          <img src="assets/logo.png" alt="SheShield Logo" class="auth-logo-img" />
+        </div>
+        <div class="auth-brand-text">
+          <h1>SheShield</h1>
+          <p>Your personal safety companion</p>
+        </div>
+      </div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login')">Login</button>
+        <button class="auth-tab" onclick="switchTab('register')">Register</button>
+      </div>
+      <div id="auth-msg"></div>
+      <!-- LOGIN -->
+      <div id="form-login">
+        <div class="form-group">
+          <label class="form-label" for="login-id">Username / Email / Phone</label>
+          <div class="input-wrap">
+            <input class="form-input" id="login-id" type="text" placeholder="Enter your login ID" autocomplete="username" />
+            <span class="input-suffix"><i class="fas fa-user"></i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-pass">Password</label>
+          <div class="input-wrap">
+            <input class="form-input" id="login-pass" type="password" placeholder="Enter your password" autocomplete="current-password" />
+            <span class="input-suffix" onclick="togglePass('login-pass',this)"><i class="fas fa-eye"></i></span>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" id="btn-login" onclick="doLogin()">Sign In</button>
+      </div>
+      <!-- REGISTER -->
+      <div id="form-register" class="hidden">
+        <div class="form-section-header">Personal Information</div>
+        <div class="form-group">
+          <label class="form-label">Full Name <span style="color:var(--red)">*</span></label>
+          <input class="form-input" id="reg-name" type="text" placeholder="Priya Sharma" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Username <span style="color:var(--red)">*</span></label>
+          <input class="form-input" id="reg-username" type="text" placeholder="priya_sharma" autocomplete="username" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span style="color:var(--red)">*</span></label>
+          <input class="form-input" id="reg-email" type="email" placeholder="priya@email.com" autocomplete="email" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone <span style="color:var(--red)">*</span></label>
+          <input class="form-input" id="reg-phone" type="tel" placeholder="9876543210" maxlength="10" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password <span style="color:var(--red)">*</span></label>
+          <div class="input-wrap">
+            <input class="form-input" id="reg-pass" type="password" placeholder="Minimum 6 characters" autocomplete="new-password" />
+            <span class="input-suffix" onclick="togglePass('reg-pass',this)"><i class="fas fa-eye"></i></span>
+          </div>
+        </div>
+        <div class="form-section-header">Emergency Contact (Optional)</div>
+        <div class="form-group">
+          <label class="form-label">Contact Name</label>
+          <input class="form-input" id="reg-emer-name" type="text" placeholder="e.g. Mother / Brother / Friend" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contact Phone</label>
+          <input class="form-input" id="reg-emer-phone" type="tel" placeholder="9876543210" maxlength="10" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Relation</label>
+          <input class="form-input" id="reg-emer-rel" type="text" placeholder="Mother / Brother / Friend" />
+        </div>
+        <button class="btn btn-primary btn-full" id="btn-register" onclick="doRegister()">Create Account</button>
+      </div>
+    </div>
+  </div><!-- /screen-auth -->
+
+
+  <!-- ══ SCREEN: HOME ══ -->
+  <div id="screen-home" class="screen">
+    <div class="topbar">
+      <div class="topbar-logo">
+        <div class="topbar-logo-icon">
+          <img src="assets/logo.png" alt="Logo" class="nav-logo-img" />
+        </div>
+        <span class="topbar-title">SheShield</span>
+      </div>
+      <button class="topbar-action" id="topbar-avatar" onclick="goTo('profile')">P</button>
+    </div>
+    <div class="scroll-area">
+      <div class="dashboard-hero">
+        <div class="hero-greeting" id="dash-greeting">Good to see you,</div>
+        <div class="hero-name" id="dash-name">Loading...</div>
+        <div class="hero-status"><span class="status-dot"></span>You are Safe</div>
+      </div>
+      <button class="sos-btn mt-20" onclick="triggerSOS()">
+        <span class="sos-ring"></span>SOS EMERGENCY
+      </button>
+      <div class="dash-columns">
+        <div class="dash-left">
+          <div class="section-label section-label-mt">Quick Actions</div>
+          <div class="quick-grid">
+            <div class="quick-card qc-ai" onclick="goTo('ai')">
+              <div class="quick-card-icon"><i class="fas fa-robot"></i></div>
+              <div class="quick-card-title">AI Safety Check</div>
+              <div class="quick-card-sub">Chat with AI for safety</div>
+            </div>
+            <div class="quick-card qc-call" onclick="goTo('contacts')">
+              <div class="quick-card-icon"><i class="fas fa-phone"></i></div>
+              <div class="quick-card-title">Emergency Contacts</div>
+              <div class="quick-card-sub">Manage your contacts</div>
+            </div>
+            <div class="quick-card qc-map" onclick="goTo('map')">
+              <div class="quick-card-icon"><i class="fas fa-map"></i></div>
+              <div class="quick-card-title">Safe Route Map</div>
+              <div class="quick-card-sub">Find safe routes nearby</div>
+            </div>
+            <div class="quick-card qc-hist" onclick="goTo('history')">
+              <div class="quick-card-icon"><i class="fas fa-clipboard-list"></i></div>
+              <div class="quick-card-title">Safety History</div>
+              <div class="quick-card-sub">View past reports</div>
+            </div>
+          </div>
+          <div class="section-label">Your Stats</div>
+          <div class="stats-row mb-12">
+            <div class="stat-box"><div class="stat-num" id="stat-checks">0</div><div class="stat-lbl">Checks Done</div></div>
+            <div class="stat-box"><div class="stat-num" id="stat-contacts">0</div><div class="stat-lbl">Contacts</div></div>
+            <div class="stat-box"><div class="stat-num">24/7</div><div class="stat-lbl">Active</div></div>
+          </div>
+          <div class="section-label">Recent Checks</div>
+          <div class="card card-home-map">
+            <div id="recent-list"></div>
+          </div>
+        </div>
+        <div class="dash-right">
+          <div class="desk-sos-card" onclick="triggerSOS()">
+            <div class="desk-sos-icon">🆘</div>
+            <div class="desk-sos-title">SOS EMERGENCY</div>
+            <div class="desk-sos-sub">Tap to alert contacts &amp; call 112</div>
+          </div>
+          <div class="desk-stats-card">
+            <div class="desk-stats-title">Your Safety Stats</div>
+            <div class="desk-stat-row"><span class="desk-stat-label"><i class="fas fa-magnifying-glass"></i> Safety Checks</span><span class="desk-stat-value" id="desk-stat-checks">0</span></div>
+            <div class="desk-stat-row"><span class="desk-stat-label"><i class="fas fa-phone"></i> Emergency Contacts</span><span class="desk-stat-value" id="desk-stat-contacts">0</span></div>
+            <div class="desk-stat-row"><span class="desk-stat-label"><i class="fas fa-clock"></i> App Active</span><span class="desk-stat-value">24/7</span></div>
+            <div class="desk-stat-row"><span class="desk-stat-label"><i class="fas fa-shield"></i> Protection</span><span class="desk-stat-value" style="color:var(--green);font-size:15px;">Active</span></div>
+          </div>
+          <div class="desk-tips-card">
+            <div class="desk-tips-title">⚡ Quick Safety Tips</div>
+            <div class="desk-tip-item"><span class="desk-tip-icon"><i class="fas fa-location-dot"></i></span>Share your live location with trusted contacts when travelling at night.</div>
+            <div class="desk-tip-item"><span class="desk-tip-icon"><i class="fas fa-bolt"></i></span>Keep your phone charged and carry a power bank.</div>
+            <div class="desk-tip-item"><span class="desk-tip-icon"><i class="fas fa-person-walking"></i></span>Prefer well-lit, populated routes especially after 9 PM.</div>
+            <div class="desk-tip-item"><span class="desk-tip-icon">📞</span>Save emergency numbers: Women Helpline 1090, Police 100.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Footer -->
+      <div class="app-footer">
+        <div class="app-footer-name">Made with 💙 by <span>Rajani Maurya</span></div>
+        <div class="footer-socials">
+          <a href="https://www.youtube.com/@Pioneer_tech" target="_blank" class="footer-social-btn yt" title="YouTube">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#FF0000"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+          </a>
+          <a href="https://in.linkedin.com/in/rajanimaurya01" target="_blank" class="footer-social-btn li" title="LinkedIn">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#0077B5"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56v11.45zM22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0z"/></svg>
+          </a>
+          <a href="https://github.com/rajanimaurya" target="_blank" class="footer-social-btn gh" title="GitHub">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#24292e"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 5.1 18 5.4 18 5.4c.7 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.5.4.9 1.2.9 2.3v3.3c0 .3.1.7.8.6A12 12 0 0 0 12 .3z"/></svg>
+          </a>
+          <a href="https://instagram.com/life.with.engineering" target="_blank" class="footer-social-btn ig" title="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18"><defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="25%" style="stop-color:#e6683c"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="75%" style="stop-color:#cc2366"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs><path fill="url(#ig-grad)" d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8 0 3.2 0 3.6-.1 4.8-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1-3.2 0-3.6 0-4.8-.1-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12c0-3.2 0-3.6.1-4.8C2.4 3.9 4 2.3 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1.0 8.3 0 8.7 0 12c0 3.3 0 3.7.1 4.9.2 4.4 2.6 6.8 7 7C8.3 24 8.7 24 12 24c3.3 0 3.7 0 4.9-.1 4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9 0-3.3 0-3.7-.1-4.9-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 1 0 0 12.4A6.2 6.2 0 0 0 12 5.8zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.8a1.4 1.4 0 1 0 0 2.8 1.4 1.4 0 0 0 0-2.8z"/></svg>
+          </a>
+          <a href="mailto:rajanimauryalu09@gmail.com" class="footer-social-btn mail" title="Email">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="#0b1d3a"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+        </div>
+      </div>
+  </div><!-- /screen-home -->
+
+
+  <!-- ══ SCREEN: AI CHAT ══ -->
+  <div id="screen-ai" class="screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goTo('home')"><i class="fas fa-arrow-left"></i></button>
+      <span class="topbar-title">AI Safety Check</span>
+      <button class="chat-new-btn" onclick="resetChatFull()" title="New conversation"><i class="fas fa-rotate-right"></i></button>
+    </div>
+
+    <!-- Chat Layout -->
+    <div class="chat-outer">
+
+      <!-- Left: Chat Panel -->
+      <div class="chat-panel">
+        <div class="chat-messages" id="chat-messages"></div>
+
+        <!-- voice-to-text transcript shows above input -->
+        <div class="voice-transcript-bar" id="voice-transcript-preview"></div>
+        <div class="voice-status-text" id="voice-status-text"></div>
+
+        <!--
+          Input Bar Layout:
+          [ text input (flex:1) ] [ 🎤 mic btn ] [ ✈️ send btn ]
+
+          Mic button behaviour:
+            • Single tap  → voice-to-text (speak once, text fills input)
+            • Long press  → toggle continuous voice mode (voice-to-voice)
+          Both controlled by JS — no separate toggle widget.
+        -->
+        <div class="chat-input-bar">
+          <input
+            class="chat-input"
+            id="chat-input"
+            type="text"
+            placeholder="Type it or tap to speak"
+            autocomplete="off"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){sendChat();event.preventDefault();}"
+          />
+          <button class="chat-mic-btn" id="btn-mic"
+            onclick="handleMicTap()"
+            onmousedown="startLongPress()"
+            onmouseup="cancelLongPress()"
+            onmouseleave="cancelLongPress()"
+            ontouchstart="startLongPress(event)"
+            ontouchend="cancelLongPress()"
+            title="Tap: voice-to-text | Hold: voice mode">
+            <i class="fas fa-microphone" id="voice-orb-icon"></i>
+          </button>
+          <button class="chat-send-btn" id="btn-send" onclick="sendChat()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: Info Panel (desktop only) — fills full height, no empty space -->
+      <div class="ai-desk-panel">
+
+        <!-- Card 1: How It Works -->
+        <div class="ai-side-card">
+          <div class="ai-side-heading"><i class="fas fa-circle-info"></i> How It Works</div>
+          <div class="ai-side-row"><span class="ai-side-num">1</span><span>Location + time batao (type ya bolo)</span></div>
+          <div class="ai-side-row"><span class="ai-side-num">2</span><span>AI 5 models se safety check karta hai</span></div>
+          <div class="ai-side-row"><span class="ai-side-num">3</span><span>Risk level + tips milenge</span></div>
+          <div class="ai-side-row ai-side-row--tip"><i class="fas fa-microphone"></i><span>Tap mic → voice to text</span></div>
+          <div class="ai-side-row ai-side-row--tip"><i class="fas fa-hand-pointer"></i><span>Hold mic → voice to voice mode</span></div>
+          <div class="ai-side-row ai-side-row--sos"><i class="fas fa-lock"></i><span>Secret code bolo → Silent SOS!</span></div>
+        </div>
+
+        <!-- Card 2: Emergency Numbers -->
+        <div class="ai-side-card ai-side-card--emergency">
+          <div class="ai-side-heading ai-side-heading--red"><i class="fas fa-triangle-exclamation"></i> Emergency Numbers</div>
+          <div class="ai-emer-row"><span><i class="fas fa-phone"></i> Women Helpline</span><strong>1090</strong></div>
+          <div class="ai-emer-row"><span><i class="fas fa-shield-halved"></i> Police</span><strong>100</strong></div>
+          <div class="ai-emer-row"><span><i class="fas fa-truck-medical"></i> Ambulance</span><strong>108</strong></div>
+          <div class="ai-emer-row"><span><i class="fas fa-fire-extinguisher"></i> Fire</span><strong>101</strong></div>
+        </div>
+
+      </div>
+
+    </div><!-- /chat-outer -->
+  </div><!-- /screen-ai -->
+
+
+  <!-- ══ SCREEN: CONTACTS ══ -->
+  <div id="screen-contacts" class="screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goTo('home')"><i class="fas fa-arrow-left"></i></button>
+      <span class="topbar-title">Emergency Contacts</span>
+      <div class="spacer-36"></div>
+    </div>
+    <div class="scroll-area">
+      <div class="spacer-h16"></div>
+      <div id="contacts-list"></div>
+      <button class="add-contact-trigger" onclick="openAddContact()">＋ Add Emergency Contact</button>
+    </div>
+  </div>
+
+
+  <!-- ══ SCREEN: HISTORY ══ -->
+  <div id="screen-history" class="screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goTo('home')"><i class="fas fa-arrow-left"></i></button>
+      <span class="topbar-title">Safety History</span>
+      <div class="spacer-36"></div>
+    </div>
+    <div class="scroll-area">
+      <div class="spacer-h16"></div>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+
+  <!-- ══ SCREEN: PROFILE ══ -->
+  <div id="screen-profile" class="screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goTo('home')"><i class="fas fa-arrow-left"></i></button>
+      <span class="topbar-title">My Profile</span>
+      <div class="spacer-36"></div>
+    </div>
+    <div class="scroll-area">
+      <div class="profile-hero-section">
+        <div class="profile-big-avatar" id="pf-avatar">P</div>
+        <div class="profile-display-name" id="pf-name-big">Loading...</div>
+        <div class="profile-badge" id="pf-role">USER</div>
+      </div>
+      <div class="card profile-info-section">
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fas fa-user"></i></div>
+          <div class="profile-row-flex"><div class="profile-row-lbl">Full Name</div><div class="profile-row-val" id="pf-name">—</div></div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fas fa-key"></i></div>
+          <div class="profile-row-flex"><div class="profile-row-lbl">Username</div><div class="profile-row-val" id="pf-username">—</div></div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fas fa-envelope"></i></div>
+          <div class="profile-row-flex"><div class="profile-row-lbl">Email</div><div class="profile-row-val" id="pf-email">—</div></div>
+          <button class="icon-btn icon-btn-edit" onclick="openEditProfile('email')"><i class="fas fa-pen"></i></button>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fas fa-mobile-screen"></i></div>
+          <div class="profile-row-flex"><div class="profile-row-lbl">Phone</div><div class="profile-row-val" id="pf-phone">—</div></div>
+          <button class="icon-btn icon-btn-edit" onclick="openEditProfile('phone')"><i class="fas fa-pen"></i></button>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="fas fa-circle-check"></i></div>
+          <div class="profile-row-flex"><div class="profile-row-lbl">Account Status</div><div class="profile-row-val" id="pf-status">Active</div></div>
+        </div>
+      </div>
+      <div class="px-20 mb-14">
+        <button class="btn btn-outline btn-full" onclick="openEditProfile('password')"><i class="fas fa-lock"></i>&nbsp; Change Password</button>
+      </div>
+      <div class="section-label">Settings</div>
+      <div class="card settings-section">
+        <div class="settings-row" onclick="goTo('contacts')">
+          <div class="settings-icon" style="background:var(--red-pale);"><i class="fas fa-phone" style="color:var(--red);"></i></div>
+          <div class="settings-text"><div class="settings-title">Emergency Contacts</div><div class="settings-sub">Manage your emergency contacts</div></div>
+          <span class="settings-arrow"><i class="fas fa-chevron-right"></i></span>
+        </div>
+        <div class="settings-row" onclick="goTo('history')">
+          <div class="settings-icon" style="background:var(--navy-pale);"><i class="fas fa-clipboard-list" style="color:var(--navy);"></i></div>
+          <div class="settings-text"><div class="settings-title">Safety History</div><div class="settings-sub">View your past safety reports</div></div>
+          <span class="settings-arrow"><i class="fas fa-chevron-right"></i></span>
+        </div>
+        <div class="settings-row" onclick="goTo('ai')">
+          <div class="settings-icon" style="background:var(--teal-pale);"><i class="fas fa-robot" style="color:var(--teal);"></i></div>
+          <div class="settings-text"><div class="settings-title">AI Safety Check</div><div class="settings-sub">Chat with AI for safety check</div></div>
+          <span class="settings-arrow"><i class="fas fa-chevron-right"></i></span>
+        </div>
+        <div class="settings-row" onclick="openSecretCodeModal()">
+          <div class="settings-icon" style="background:#fff0f5;"><i class="fas fa-user-secret" style="color:#e91e8c;"></i></div>
+          <div class="settings-text">
+            <div class="settings-title">Secret SOS Code</div>
+            <div class="settings-sub" id="secret-code-status">Loading...</div>
+          </div>
+          <span class="settings-arrow"><i class="fas fa-chevron-right"></i></span>
+        </div>
+      </div>
+      <div class="p-20 pb-20">
+        <button class="btn btn-danger btn-full" onclick="doLogout()"><i class="fas fa-right-from-bracket"></i>&nbsp; Logout</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ SCREEN: MAP ══ -->
+  <div id="screen-map" class="screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="goTo('home')"><i class="fas fa-arrow-left"></i></button>
+      <span class="topbar-title">Safe Route Map</span>
+      <div class="spacer-36"></div>
+    </div>
+    <div class="map-search-bar">
+      <div class="map-search-wrap">
+        <span class="map-search-icon">📍</span>
+        <input class="map-search-input" id="map-search-input" type="text" placeholder="Search location..." autocomplete="off" />
+        <button class="map-search-btn" onclick="searchLocation()">Search</button>
+      </div>
+      <div class="map-filters">
+        <button class="filter-chip active" onclick="toggleFilter(this,'hospital')" data-type="hospital"><i class="fas fa-hospital"></i> Hospital</button>
+        <button class="filter-chip active" onclick="toggleFilter(this,'restaurant')" data-type="restaurant"><i class="fas fa-utensils"></i> Restaurant</button>
+        <button class="filter-chip active" onclick="toggleFilter(this,'shopping_mall')" data-type="shopping_mall"><i class="fas fa-bag-shopping"></i> Mall</button>
+        <button class="filter-chip active" onclick="toggleFilter(this,'police')" data-type="police"><i class="fas fa-shield-halved"></i> Police</button>
+      </div>
+    </div>
+    <div id="google-map" class="map-container"></div>
+    <div id="place-sheet" class="place-sheet">
+      <div class="place-sheet-handle"></div>
+      <div id="place-sheet-content"></div>
+    </div>
+  </div>
+
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <div class="nav-item active" onclick="goTo('home')" data-nav="home"><span class="nav-icon"><i class="fas fa-house"></i></span><span class="nav-label">Home</span></div>
+    <div class="nav-item" onclick="goTo('ai')" data-nav="ai"><span class="nav-icon"><i class="fas fa-robot"></i></span><span class="nav-label">AI Safety</span></div>
+    <div class="nav-item" onclick="goTo('map')" data-nav="map"><span class="nav-icon"><i class="fas fa-map"></i></span><span class="nav-label">Map</span></div>
+    <div class="nav-item" onclick="goTo('contacts')" data-nav="contacts"><span class="nav-icon"><i class="fas fa-phone"></i></span><span class="nav-label">Contacts</span></div>
+    <div class="nav-item" onclick="goTo('profile')" data-nav="profile"><span class="nav-icon"><i class="fas fa-user"></i></span><span class="nav-label">Profile</span></div>
+  </nav>
+
+  </div><!-- /desk-main -->
+</div><!-- /app -->
+
+
+<!-- SOS OVERLAY -->
+<div id="sos-overlay">
+  <!--
+    DESIGN INTENT: Yeh screen ATTACKER-PROOF hai.
+    Bahar se dekhne par yeh sirf ek normal "Weather" screen lagti hai.
+    Andar SOS silently kaam kar raha hota hai.
+    Sirf user ko pata hota hai ki help aa rahi hai.
+  -->
+
+  <!-- Fake "safe" UI - attacker ko lagega normal weather app hai -->
+  <div class="sos-fake-screen">
+    <div class="sos-fake-header">
+      <span style="font-size:22px;">☀️</span>
+      <span style="font-size:16px;font-weight:600;color:#fff;">Today</span>
+      <span style="font-size:14px;color:rgba(255,255,255,0.7);">Safe</span>
+    </div>
+    <div class="sos-fake-temp">26°</div>
+    <div class="sos-fake-city">Lucknow, India</div>
+    <div class="sos-fake-detail">Feels like a normal day</div>
+
+    <!-- Hidden status - only user can notice subtle dot -->
+    <div id="sos-popup" class="sos-popup-msg"></div>
+
+    <!-- Very subtle cancel -->
+    <button class="sos-cancel-btn" onclick="closeSOS()">Done</button>
+  </div>
+</div>
+
+
+<!-- CONTACT MODAL -->
+<div id="contact-modal" class="modal-overlay hidden">
+  <div class="modal-backdrop" onclick="closeContactModal()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title" id="modal-title">Add Contact</div>
+      <div id="contact-modal-msg"></div>
+      <div class="form-group"><label class="form-label">Name <span style="color:var(--red)">*</span></label><input class="form-input" id="c-name" type="text" placeholder="Contact name" /></div>
+      <div class="form-group"><label class="form-label">Phone <span style="color:var(--red)">*</span></label><input class="form-input" id="c-phone" type="tel" placeholder="10-digit number" maxlength="10" /></div>
+      <div class="form-group"><label class="form-label">Email (Optional)</label><input class="form-input" id="c-email" type="email" placeholder="email@example.com" /></div>
+      <div class="form-group"><label class="form-label">Relation</label><input class="form-input" id="c-relation" type="text" placeholder="Mother / Sister / Friend" /></div>
+      <div class="modal-btn-row">
+        <button class="btn btn-outline btn-modal-cancel" onclick="closeContactModal()">Cancel</button>
+        <button class="btn btn-primary btn-modal-confirm" id="btn-save-contact" onclick="saveContact()">Save Contact</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SECRET CODE MODAL -->
+<div id="secret-code-modal" class="modal-overlay hidden">
+  <div class="modal-backdrop" onclick="closeSecretCodeModal()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">🤫 Secret SOS Code</div>
+      <div style="font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:14px;padding:0 2px;">
+        Ek secret word set karo. Jab tum kisi ke saamne yeh word chat mein likho — <strong>SOS silently trigger ho jayega</strong> aur tumhare contacts ko alert chali jayegi. Attacker ko pata bhi nahi chalega. 🛡️
+      </div>
+      <div id="secret-code-modal-msg"></div>
+      <div class="form-group">
+        <label class="form-label">Secret Word <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="sc-word" type="text" placeholder="e.g. neebu, chai, homework..." autocomplete="off" />
+        <div style="font-size:12px;color:var(--text-muted);margin-top:5px;">Koi common word rakho jo suspicious na lage.</div>
+      </div>
+      <div class="modal-btn-row">
+        <button class="btn btn-outline btn-modal-cancel" onclick="closeSecretCodeModal()">Cancel</button>
+        <button class="btn btn-primary btn-modal-confirm btn-secret" id="btn-save-secret" onclick="saveSecretCode()">Save Secret Code</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- PROFILE EDIT MODAL -->
+<div id="profile-edit-modal" class="modal-overlay hidden">
+  <div class="modal-backdrop" onclick="closeProfileModal()">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title" id="profile-modal-title">Edit Profile</div>
+      <div id="profile-modal-msg"></div>
+      <div id="edit-email-fields" class="hidden">
+        <div class="form-group"><label class="form-label">New Email</label><input class="form-input" id="edit-email" type="email" placeholder="Enter new email address" /></div>
+      </div>
+      <div id="edit-phone-fields" class="hidden">
+        <div class="form-group"><label class="form-label">New Phone</label><input class="form-input" id="edit-phone" type="tel" placeholder="10-digit number" maxlength="10" /></div>
+      </div>
+      <div id="edit-password-fields" class="hidden">
+        <div class="form-group">
+          <label class="form-label">New Password</label>
+          <div class="input-wrap">
+            <input class="form-input" id="edit-pass" type="password" placeholder="Minimum 6 characters" />
+            <span class="input-suffix" onclick="togglePass('edit-pass',this)"><i class="fas fa-eye"></i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="input-wrap">
+            <input class="form-input" id="edit-pass-confirm" type="password" placeholder="Re-enter your password" />
+            <span class="input-suffix" onclick="togglePass('edit-pass-confirm',this)"><i class="fas fa-eye"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-btn-row">
+        <button class="btn btn-outline btn-modal-cancel" onclick="closeProfileModal()">Cancel</button>
+        <button class="btn btn-primary btn-modal-confirm" id="btn-save-profile" onclick="saveProfileUpdate()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- Main App (must load first — defines triggerSOS, goTo, state, etc.) -->
+<script src="js/app.js"></script>
+
+<!-- Live Tracking Module -->
+<script src="js/live-tracking.js"></script>
+
+<!-- Voice Commands Module (needs triggerSOS from app.js) -->
+<script src="js/voice-commands.js"></script>
+
+<!-- Map Filters Module (needs google.maps + toggleFilter) -->
+<script src="js/map-filters.js"></script>
+
+<!-- Google Maps API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTHoZ8RUR0tc_Ei-_jlV6tTeFcJ9Surk8&libraries=places&callback=initMap" async defer></script>
+</body>
+</html>
