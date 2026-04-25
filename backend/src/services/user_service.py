@@ -39,17 +39,16 @@ class UserService:
         )
         
         db.add(new_user)
-        await db.flush()  # ID generate karne ke liye bina commit kiye
+        await db.flush()
         
         # 3. Create Emergency Contact (3NF Table)
-        if any([data.emergency_name, data.emergency_phone, data.emergency_relation]):
+        if any([data.emergency_name, data.emergency_phone, data.emergency_relation, data.emergency_email]):
             emergency_contact = EmergencyContact(
-            user_id=new_user.id,
-            name=data.emergency_name,
-            phone=data.emergency_phone,
-            relation=data.emergency_relation,
-            email=data.emergency_email
-)
+                user_id=new_user.id,
+                name=data.emergency_name,
+                phone=data.emergency_phone,
+                relation=data.emergency_relation,
+                email=data.emergency_email
             )
             db.add(emergency_contact)
         
@@ -85,7 +84,7 @@ class UserService:
     @staticmethod
     async def get_users(db: AsyncSession):
         result = await db.execute(
-            select(User).options(selectinload(User.emergency_contact))
+            select(User).options(selectinload(User.emergency_contacts))
         )
         return result.scalars().all()
 
@@ -96,17 +95,14 @@ class UserService:
         update_data = data.model_dump(exclude_unset=True)
         
         # Separate User data and Emergency data
-        emergency_fields = ['emergency_name', 'emergency_phone', 'emergency_relation']
+        emergency_fields = ['emergency_name', 'emergency_phone', 'emergency_relation', 'emergency_email']
         
         for key, value in update_data.items():
-            # Agar key 'emergency_' se start hoti hai toh dusri table update karo
             if key in emergency_fields:
-                if user.emergency_contact:
-                    # 'emergency_name' -> 'name' field in EmergencyContact table
+                if user.emergency_contacts:
                     attr_name = key.replace('emergency_', '')
-                    setattr(user.emergency_contact, attr_name, value)
+                    setattr(user.emergency_contacts[0], attr_name, value)
                 else:
-                    # Agar pehle se contact nahi tha toh naya banao
                     new_contact = EmergencyContact(user_id=user.id)
                     setattr(new_contact, key.replace('emergency_', ''), value)
                     db.add(new_contact)
