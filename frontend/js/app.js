@@ -12,7 +12,7 @@
      - History: handles both old (string) & new (JSON) reports
    ============================================= */
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://sheshiled-using-agentic-ai-v2-production.up.railway.app';
 
 // ── STATE ────────────────────────────────────
 const state = {
@@ -1202,10 +1202,10 @@ async function routeToNearestOfType(type) {
       longitude: currentLocation.lng,
       radius:    3000
     }, false);
-    if (!data || !data.places) { toast('Koi jagah nahi mili', 'error'); return; }
+    if (!data || !data.places) { toast('place not found', 'error'); return; }
     const backendType = type === 'shopping_mall' ? 'mall' : type;
     const filtered = data.places.filter(p => p.type === backendType);
-    if (filtered.length === 0) { toast('Koi jagah nahi mili', 'error'); return; }
+    if (filtered.length === 0) { toast('place not found', 'error'); return; }
     const nearest = filtered.reduce((a, b) => a.distance < b.distance ? a : b);
     await getRouteTo(nearest.lat, nearest.lng, nearest.name);
   } catch(e) {

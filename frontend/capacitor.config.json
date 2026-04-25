@@ -1,0 +1,8 @@
+{
+  "appId": "com.sheshield.app",
+  "appName": "SheShield",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

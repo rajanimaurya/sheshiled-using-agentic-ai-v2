@@ -51,8 +51,8 @@ async def get_secret_code(
     """User apna current secret code dekhe."""
     code = getattr(current_user, "secret_code", None)
     if not code:
-        return SecretCodeOut(secret_code=None, message="Koi secret code set nahi hai.")
-    return SecretCodeOut(secret_code=code, message="Yeh hai aapka current secret code.")
+        return SecretCodeOut(secret_code=None, message="not secert code added.")
+    return SecretCodeOut(secret_code=code, message="this is yout current secret code.")
 
 
 # 5. SET SECRET CODE
@@ -68,8 +68,8 @@ async def set_secret_code(
     """
     await UserService.set_secret_code(db, current_user.id, data.secret_code)
     return {
-        "message": "Secret code save ho gaya ✅",
-        "hint":    "Ab jab bhi yeh word chat mein bolo, SOS automatically trigger hoga.",
+        "message": "Secret code save✅",
+        "hint":    "when you say , SOS automatically trigger .",
     }
 
 
