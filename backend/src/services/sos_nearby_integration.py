@@ -291,6 +291,7 @@ class SheShieldSOSNearby:
             return True, f"SOS email with nearby places sent to {recipient_email}"
 
         except Exception as e:
+            print(f"❌ Email failed: {str(e)}")
             return False, f"Error sending email: {str(e)}"
 
     @staticmethod
@@ -338,6 +339,7 @@ async def trigger_sos_emergency(
         success, message = await SheShieldSOSNearby.send_sos_with_nearby_email(
             email, user_name, latitude, longitude, timestamp
         )
+        print(f"📧 Email result for {email}: success={success}, message={message}")
         email_results.append({"email": email, "success": success, "message": message})
 
     # Get map links
