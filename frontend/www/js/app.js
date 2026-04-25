@@ -12,7 +12,7 @@
      - History: handles both old (string) & new (JSON) reports
    ============================================= */
 
-const API_BASE = 'http://192.168.18.43:8000';
+const API_BASE = 'https://sheshiled-using-agentic-ai-v2-production.up.railway.app';
 
 // ── STATE ────────────────────────────────────
 const state = {
