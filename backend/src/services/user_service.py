@@ -44,10 +44,12 @@ class UserService:
         # 3. Create Emergency Contact (3NF Table)
         if any([data.emergency_name, data.emergency_phone, data.emergency_relation]):
             emergency_contact = EmergencyContact(
-                user_id=new_user.id,
-                name=data.emergency_name,
-                phone=data.emergency_phone,
-                relation=data.emergency_relation
+            user_id=new_user.id,
+            name=data.emergency_name,
+            phone=data.emergency_phone,
+            relation=data.emergency_relation,
+            email=data.emergency_email
+)
             )
             db.add(emergency_contact)
         

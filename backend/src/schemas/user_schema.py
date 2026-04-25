@@ -11,6 +11,7 @@ class UserCreate(BaseModel):
     
     # Flattened fields
     emergency_name: Optional[str] = None
+    emergency_email: Optional[str] = None
     emergency_phone: Optional[str] = None
     emergency_relation: Optional[str] = None
     

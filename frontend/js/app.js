@@ -133,6 +133,7 @@ async function doRegister() {
     emergency_name:     val('reg-emer-name')  || undefined,
     emergency_phone:    val('reg-emer-phone') || undefined,
     emergency_relation: val('reg-emer-rel')   || undefined,
+    emergency_email: val('reg-emer-email') || undefined,
   };
   const btn = document.getElementById('btn-register');
   btn.disabled = true; btn.textContent = 'Creating account...';
