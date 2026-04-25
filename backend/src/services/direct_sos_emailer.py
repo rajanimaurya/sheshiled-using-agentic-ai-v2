@@ -67,7 +67,7 @@ class DirectSOSEmailer:
             print(f"📧 Sending SOS email to {recipient_email}...")
             
             with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
-            smtp.starttls()
+                smtp.starttls()
                 smtp.login(DirectSOSEmailer.SENDER_EMAIL, DirectSOSEmailer.SENDER_PASSWORD)
                 smtp.send_message(msg)
             
