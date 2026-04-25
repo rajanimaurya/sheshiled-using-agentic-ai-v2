@@ -283,7 +283,8 @@ class SheShieldSOSNearby:
             msg.attach(MIMEText(html_body, "html"))
 
             # Send email
-            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            with smtplib.SMTP("smtp.gmail.com", 587) as smtp:
+                smtp.starttls()
                 smtp.login(sender_email, sender_password)
                 smtp.send_message(msg)
 
