@@ -104,7 +104,7 @@ async def trigger_sos(
             status_code=400,
             detail="No email addresses in emergency contacts"
         )
-    
+    print(f"🚨 SOS background task adding for emails: {recipient_emails}")
     # Trigger SOS in background
     background_tasks.add_task(
         trigger_sos_emergency,
