@@ -333,6 +333,7 @@ async def trigger_sos_emergency(
     # Get nearby places
     nearby_places = SheShieldSOSNearby.find_nearby_places(latitude, longitude)
 
+    print(f"🚨 trigger_sos_emergency called for {recipient_emails}")
     # Send emails to all recipients
     email_results = []
     for email in recipient_emails:
