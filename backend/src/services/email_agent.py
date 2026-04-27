@@ -10,9 +10,10 @@ from langgraph.graph import StateGraph, START, END, MessagesState
 from langgraph.prebuilt import ToolNode
 from typing import Literal
 
+# .env file load karne ke liye
 load_dotenv()
 
-#  SYSTEM PROMPT 
+# --- SYSTEM PROMPT ---
 SYSTEM_PROMPT = SystemMessage(content="""You are SheShield's professional Email Writing Agent.
 
 Your job is to write and send safety emails on behalf of the SheShield Women's Safety App.
@@ -30,7 +31,7 @@ When given a recipient email, you MUST:
 5. Do NOT explain what you are doing — just write and send the email.""")
 
 
-# TOOL
+# --- TOOL (Yahan changes kiye gaye hain) ---
 @tool
 def send_email_tool(recipient_email: str, subject: str, body: str) -> str:
     """Sends a professional safety email to the given recipient."""
@@ -39,24 +40,25 @@ def send_email_tool(recipient_email: str, subject: str, body: str) -> str:
     sender_password = os.getenv("EMAIL_PASS")
 
     if not sender_email or not sender_password:
-        return "AUTH_ERROR: Email service not configured."
+        return "AUTH_ERROR: Email service not configured in .env file."
 
     try:
+        # Galti 1: EmailMessage object ko create karna zaroori hai
         msg = EmailMessage()
         msg.set_content(body)
         msg['Subject'] = subject
         msg['From'] = sender_email
         msg['To'] = recipient_email
 
-        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-            smtp.starttls()
+        # Galti 2: 'with' block ke andar indentation (spacing) honi chahiye
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(sender_email, sender_password)
             smtp.send_message(msg)
 
         return f"SUCCESS: Mail sent successfully to {recipient_email}"
 
     except smtplib.SMTPAuthenticationError:
-        return "AUTH_ERROR: Incorrect Email or App Password."
+        return "AUTH_ERROR: Incorrect Email or App Password. Check Gmail App Passwords."
     except smtplib.SMTPConnectError:
         return "NETWORK_ERROR: Could not connect to the server."
     except smtplib.SMTPRecipientsRefused:
@@ -65,7 +67,7 @@ def send_email_tool(recipient_email: str, subject: str, body: str) -> str:
         return f"ERROR: {str(e)}"
 
 
-# MODEL 
+# --- MODEL CONFIGURATION ---
 tools = [send_email_tool]
 
 model = ChatOpenAI(
@@ -76,7 +78,7 @@ model = ChatOpenAI(
 ).bind_tools(tools)
 
 
-# GRAPH NODE
+# --- GRAPH NODES ---
 def call_model(state: MessagesState):
     messages = [SYSTEM_PROMPT] + state["messages"]
     response = model.invoke(messages)
@@ -90,7 +92,7 @@ def should_continue(state: MessagesState) -> Literal["tools", END]:
     return END
 
 
-#  BUILD GRAPH 
+# --- BUILD GRAPH ---
 tool_node = ToolNode(tools)
 
 workflow = StateGraph(MessagesState)
@@ -105,36 +107,44 @@ workflow.add_edge("tools", "agent")
 graph = workflow.compile()
 
 
+# --- EXECUTION FUNCTION ---
 def run_email_agent(target_email: str):
     user_input = f"Send a professional women's safety email to {target_email}."
 
+    print(f"--- Sending email to: {target_email} ---")
+    
     result = graph.invoke({
         "messages": [HumanMessage(content=user_input)]
     })
 
-    
     all_messages = result["messages"]
-    sent = any("SUCCESS" in str(msg.content) for msg in all_messages)
+    
+    # Check if tool response was successful
+    sent = any("SUCCESS" in str(msg.content) for msg in all_messages if hasattr(msg, 'content'))
 
     if sent:
-        print(f" Email sent successfully to {target_email}!")
+        print(f"\n Email sent successfully to {target_email}!")
     else:
+        print("\nFailed to send email. Check logs below:")
         for msg in all_messages:
             content = str(msg.content)
             if "NETWORK_ERROR" in content:
-                print(" Network error — please try again.")
+                print("   [Network Error] Connection failed.")
                 break
             elif "AUTH_ERROR" in content:
-                print("Auth error — check .env file.")
+                print("   [Auth Error] Email/Password galat hai. Kya aapne App Password use kiya?")
                 break
             elif "INVALID_EMAIL" in content:
-                print("Invalid email address.")
+                print("   [Invalid Email] Email address check karein.")
                 break
         else:
-            print("Something went wrong.")
+            print("   Something went wrong during the tool call.")
 
 
-
+# --- MAIN ---
 if __name__ == "__main__":
     email_id = input("Enter recipient email ID: ")
-    run_email_agent(email_id)
+    if email_id:
+        run_email_agent(email_id)
+    else:
+        print("Email ID can not blank")
