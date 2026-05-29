@@ -1,4 +1,4 @@
-![GitHub Repo stars](https://img.shields.io/github/stars/rajanimaurya/sheshild-major-project?style=social)
+![GitHub Repo stars](https://github.com/rajanimaurya/sheshiled-using-agentic-ai-v2)
 ![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)
