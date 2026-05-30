@@ -172,50 +172,55 @@ This alert was sent automatically by SheShield.
 <img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/voice_chatbot_flow.png" width="600">
 
 ---
-
-## 📱 App Screenshots
 ## 📱 App Screenshots
 
+<!-- Registration -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-22-58.png" width="300">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/registration.png" width="300">
+</p>
+
+<!-- Login -->
+<p align="center">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/login.png" width="300">
+</p>
+
+<!-- Home -->
+<p align="center">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/home.png" width="300">
+</p>
+
+<!-- Chatbot -->
+<p align="center">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/chatbot.png" width="300">
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-24-54.png" width="300">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/chatbot2.png" width="300">
+</p>
+
+<!-- Map / Location -->
+<p align="center">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/location.png" width="300">
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-26-45.png" width="300">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/location-detect.png" width="300">
 </p>
 
+<!-- Emergency Contact -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-26-58.png" width="300">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/emergency-contact.png" width="300">
 </p>
 
+<!-- Profile -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-27-09.png" width="300">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/profile.png" width="300">
 </p>
 
+<!-- Mail Output -->
 <p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-22%2010-12-35.png" width="300">
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/mail-output.png" width="300">
 </p>
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-22%2017-52-47.png" width="300">
-</p>
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-22%2017-54-35.png" width="300">
-</p>
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-26%2015-15-20.png" width="300">
-</p>
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-05-19%2015-35-26.png" width="300">
-</p>
-
 
 ---
 
