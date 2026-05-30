@@ -1,16 +1,4 @@
-# ─────────────────────────────────────────────────────────────────────────────
-# SheShield — Requirements
-#
-# Changes from original:
-#   + httpx           → LLM workers ke liye async HTTP calls
-#   + langchain-openai → sms_agent + email_agent ke liye
-#   + langchain-core   → sms_agent + email_agent ke liye
-#   + langgraph        → sms_agent + email_agent ke liye
-#   + twilio           → sms_agent ke liye (SMS + Call)
-# Baaki sab original rakha hai.
-# ─────────────────────────────────────────────────────────────────────────────
 
-# ── Existing ──────────────────────────────────────────────────────────────────
 fastapi
 uvicorn
 SQLAlchemy
@@ -21,21 +9,12 @@ python-dotenv
 asyncpg
 pydantic-settings
 pydantic[email]
-
-# ── Naye ─────────────────────────────────────────────────────────────────────
-
-# Google Maps API ke liye (SOS nearby places)
 requests
-
-# LLM workers ke liye async HTTP
 httpx
-
-# sms_agent.py + email_agent.py ke liye
 langchain-openai
 langchain-core
 langgraph
-
-# sms_agent — Twilio (SMS + Voice Call)
 twilio
 bcrypt==4.0.1
 passlib[bcrypt]==1.7.4
+
