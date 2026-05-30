@@ -125,6 +125,14 @@ To build an **AI-powered, multi-channel women safety application** that:
 - **DeepSeek-V3 acts as a Judge** — picks the most accurate and safe reply
 - Built using **LangGraph StateGraph** pattern for structured agent flow
 
+### 📰 7. Live Crime News Intelligence
+- Fetches **real-time crime news** from online sources using a live News API
+- AI automatically extracts **location, time, and type of crime** from news articles
+- LangGraph agent analyzes this data and **updates risk assessment** for nearby areas
+- User receives proactive alerts like:
+  > *"3 incidents reported near MG Road in last 24 hours — avoid this area after 9 PM"*
+- Helps women make **informed decisions** before stepping out
+
 ---
 
 ## ⚡ How It Works
@@ -136,6 +144,11 @@ When a user triggers SOS (by button, voice, or secret code), SheShield:
 3. **AI processes** any chat or voice query using 5 parallel LLM workers judged by DeepSeek-V3
 4. **Safe places** are fetched from Google Places API and shown on the map
 5. **Voice trigger** listens in background — saying "Help Me" fires SOS instantly without screen touch
+6. 6. **Live Crime News Analysis**
+   - News API fetches latest crime reports from online sources in real time
+   - LLM reads and extracts location, type of crime, and time from each article
+   - LangGraph agent maps this to the user's current or searched location
+   - Risk level for that area is updated and shown to the user instantly
 
 **Example Alert sent to trusted contacts:**
 ```
@@ -252,6 +265,7 @@ sheshiled-using-agentic-ai-v2/
 | Maps | Google Places API + Google Maps JS API |
 | Deployment | Railway |
 | Authentication | JWT |
+| News Intelligence | News API + LLM extraction |
 
 ---
 
@@ -383,9 +397,8 @@ web: uvicorn src.main:app --host 0.0.0.0 --port $PORT
 | Feature | Priority | Description |
 |---------|----------|-------------|
 | iOS App (Capacitor) | ⭐⭐⭐⭐ | Native iOS build |
-| Multi-Language Alerts | ⭐⭐⭐ | Hindi, Tamil, Telugu alert messages |
+| Multi-Language Alerts | ⭐⭐⭐ | Tamil, Telugu alert messages |
 | Crime Heatmap | ⭐⭐⭐⭐ | ML-based area risk visualization |
-| Law Enforcement API | ⭐⭐⭐ | Real-time alerts to authorities |
 | Wearable Integration | ⭐⭐⭐⭐⭐ | Smartwatch SOS trigger |
 | Offline SOS Mode | ⭐⭐⭐⭐ | Works without internet |
 
