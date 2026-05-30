@@ -1,4 +1,4 @@
-![GitHub Repo stars](https://github.com/rajanimaurya/sheshiled-using-agentic-ai-v2)
+![GitHub Repo stars](https://img.shields.io/github/stars/rajanimaurya/sheshiled-using-agentic-ai-v2?style=social)
 ![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)
@@ -11,20 +11,71 @@
 
 <img src="https://github.com/rajanimaurya/SheShield-Predictive-Women-Safety-LLM-Location-Intelligence/blob/main/images/Safety%20for%20Girls%20Logo%20Design.png?raw=true" width="200">
 
-**AI-Powered Women Safety Application**
+# SheShield
+### AI-Powered Women Safety Application using Agentic AI
+
 *Real-Time SOS · Voice Chatbot · Safe Route Map · Secret Distress Code*
 
 </div>
 
 ---
 
-## 🚀 Project Overview
+## 📌 Table of Contents
 
-**SheShield** is an **AI-powered women safety platform** that combines **LangGraph multi-agent intelligence, real-time GPS tracking, and multi-channel emergency alerts** to protect women in unsafe situations.
+- [Problem Statement](#-problem-statement)
+- [Objective](#-objective)
+- [Solution](#-solution)
+- [Key Features](#-key-features)
+- [How It Works](#-how-it-works)
+- [System Architecture](#-system-architecture)
+- [App Screenshots](#-app-screenshots)
+- [Project Structure](#-project-structure)
+- [Tech Stack](#-tech-stack)
+- [Installation & Setup](#-installation--setup)
+- [API Endpoints](#-api-endpoints)
+- [Deployment on Railway](#-deployment-on-railway)
+- [Future Enhancements](#-future-enhancements)
+- [Author](#-author)
 
-It is not just an SOS button — it is a **complete intelligent safety companion**. Whether you speak, type, or press a button, SheShield understands and acts instantly. It alerts your trusted contacts with your live location, suggests nearby safe places, and even lets you silently trigger SOS using a **secret distress code** — without the attacker ever knowing.
+---
 
-Built as a **B.Tech Major Project** at KMCLU, Lucknow — deployed live on Railway with an Android APK.
+## ❗ Problem Statement
+
+Women's safety remains a critical concern across India, especially during late-night travel, isolated situations, or emergencies where help cannot be called openly. Existing safety apps are limited — they either require manual intervention, depend on a single alert channel, or fail to respond intelligently in real-time situations.
+
+Key problems identified:
+
+- No way to silently trigger SOS without alerting an attacker
+- Emergency alerts often limited to SMS only — no email or voice call backup
+- No AI-powered understanding of the user's situation or surroundings
+- No real-time nearby safe place suggestions during emergencies
+- Voice-based help not possible when typing is unsafe
+
+---
+
+## 🎯 Objective
+
+To build an **AI-powered, multi-channel women safety application** that:
+
+1. Allows women to trigger SOS through multiple methods — button, voice, or secret code
+2. Instantly notifies trusted contacts via Email, SMS, and Voice Call simultaneously
+3. Uses **Agentic AI (LangGraph)** to provide smart, context-aware safety responses
+4. Suggests nearby safe locations (hospitals, police stations) in real time
+5. Works silently in unsafe situations without revealing the user's intent
+
+---
+
+## ✅ Solution
+
+**SheShield** is a complete AI-powered safety companion that solves every identified problem:
+
+| Problem | SheShield Solution |
+|---------|-------------------|
+| Cannot call for help openly | Secret distress code triggers SOS silently |
+| Single alert channel fails | Email + SMS + Voice Call sent simultaneously |
+| No AI understanding of situation | LangGraph multi-agent AI processes every query |
+| No nearby safe place info | Google Places API shows hospitals, police stations live |
+| Cannot speak or type safely | Voice trigger "Help Me" works in background offline |
 
 ---
 
@@ -76,113 +127,76 @@ Built as a **B.Tech Major Project** at KMCLU, Lucknow — deployed live on Railw
 
 ---
 
+## ⚡ How It Works
+
+When a user triggers SOS (by button, voice, or secret code), SheShield:
+
+1. **Captures live GPS location** from the device
+2. **Dispatches alerts** simultaneously via Email, SMS, and Voice Call to all trusted contacts
+3. **AI processes** any chat or voice query using 5 parallel LLM workers judged by DeepSeek-V3
+4. **Safe places** are fetched from Google Places API and shown on the map
+5. **Voice trigger** listens in background — saying "Help Me" fires SOS instantly without screen touch
+
+**Example Alert sent to trusted contacts:**
+```
+🚨 EMERGENCY ALERT — SheShield
+
+Name  : Rajani Maurya
+Time  : 2025-11-25 22:34:10
+
+📍 Location : 26.8467° N, 80.9462° E
+🗺️  Maps Link : https://maps.google.com/?q=26.8467,80.9462
+
+Please contact her immediately or reach her location.
+This alert was sent automatically by SheShield.
+```
+
+---
+
 ## 🏗️ System Architecture
 
-### How It All Works Together
-
-```
-  ┌─────────────────────────────────────────────────────┐
-  │               User (Android App / Browser)           │
-  │   [ SOS Button ]  [ Chat ]  [ Map ]  [ Mic ]        │
-  └───────────────────────┬─────────────────────────────┘
-                          │  HTTP / REST API
-                          ▼
-  ┌─────────────────────────────────────────────────────┐
-  │              FastAPI Backend (Railway)               │
-  │                                                     │
-  │  sos_endpoint.py      →   Receives SOS trigger      │
-  │  alert_dispatcher.py  →   Coordinates all alerts    │
-  │  email_service.py     →   Sends Gmail SMTP email    │
-  │  voice_chat.py        →   Whisper + LLM + gTTS      │
-  │  voice_trigger.py     →   "Help Me" background mic  │
-  │  safe_route.py        →   Google Places API         │
-  │  langgraph_agent/     →   Multi-agent AI system     │
-  └──────────┬──────────────────┬────────────────┬──────┘
-             │                  │                │
-             ▼                  ▼                ▼
-      ┌────────────┐   ┌──────────────┐  ┌────────────────┐
-      │ PostgreSQL │   │    Twilio    │  │  Together.ai   │
-      │ (Database) │   │ SMS + Call   │  │  LLM Workers   │
-      └────────────┘   └──────────────┘  └────────────────┘
-```
-
----
+### Overall System Flow
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/system_architecture.png" width="800">
 
 ### Multi-Agent AI Workflow
-
-```
-  Your Message
-       │
-       ▼
-  ┌────────────────────────────────────────────┐
-  │             Parallel LLM Workers           │
-  │                                            │
-  │   LLaMA   Mistral   Qwen   Gemma   GPT    │
-  │     │        │        │      │       │     │
-  │     └────────┴────────┴──────┴───────┘     │
-  │          (All run at the same time)         │
-  └────────────────────┬───────────────────────┘
-                       │  5 responses generated
-                       ▼
-             ┌──────────────────┐
-             │  DeepSeek Judge  │
-             │                  │
-             │  Picks the best  │
-             │  response        │
-             └────────┬─────────┘
-                      │
-                      ▼
-               Final Answer ✅
-```
-
----
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/multi_agent_ai.png" width="800">
 
 ### SOS Alert Flow
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/sos_alert_flow.png" width="800">
 
-```
-  User presses SOS / says "Help Me" / types secret code
-                        │
-                        ▼
-              GPS Location Fetched
-                        │
-                        ▼
-            alert_dispatcher.py
-           /           |           \
-          ▼            ▼            ▼
-      Gmail         Twilio        Twilio
-      Email          SMS        Voice Call
-          \           |           /
-           ▼          ▼          ▼
-        Trusted Contacts Notified
-        with Location + Maps Link ✅
-```
+### Voice Chatbot Flow
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/voice_chatbot_flow.png" width="600">
 
 ---
 
-### Voice Chatbot Flow
+## 📱 App Screenshots
 
-```
-  You Speak
-      │
-      ▼
-  Whisper STT        →   Converts audio to text
-      │
-      ▼
-  LangGraph Agent    →   5 workers + DeepSeek judge
-      │
-      ▼
-  gTTS               →   Converts reply to speech
-      │
-      ▼
-  You Hear the Reply ✅
-```
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-22-58.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-24-54.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-26-45.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-26-58.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-16%2010-27-09.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-22%2010-12-35.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-22%2017-52-47.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-22%2017-54-35.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-04-26%2015-15-20.png" width="700">
+
+<img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-05-19%2015-35-26.png" width="700">
 
 ---
 
 ## 📁 Project Structure
 
 ```
-sheshield-major-project/
+sheshiled-using-agentic-ai-v2/
 │
 ├── backend/
 │   ├── src/
@@ -210,9 +224,32 @@ sheshield-major-project/
 │       ├── sos-handler.js           # SOS button + secret code
 │       └── safe-route-map.js        # Map display + nearby places
 │
-└── android/                         # Capacitor Android project
-    └── app/
+├── android/                         # Capacitor Android project
+│   └── app/
+│
+└── image/                           # All diagrams and screenshots
 ```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Backend | FastAPI (Python 3.10+) |
+| AI Agents | LangGraph, DeepSeek-V3, LLaMA, Mistral, Qwen, Gemma |
+| LLM Provider | Together.ai |
+| Speech-to-Text | OpenAI Whisper |
+| Text-to-Speech | gTTS |
+| Voice Trigger | Vosk (Offline) |
+| SMS & Voice Call | Twilio |
+| Email Alerts | Gmail SMTP |
+| Database | PostgreSQL (SQLAlchemy) |
+| Frontend | Vanilla JS (4 modules), HTML5, CSS3 |
+| Mobile App | Capacitor (Android APK) |
+| Maps | Google Places API + Google Maps JS API |
+| Deployment | Railway |
+| Authentication | JWT |
 
 ---
 
@@ -221,8 +258,8 @@ sheshield-major-project/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/rajanimaurya/sheshild-major-project.git
-cd sheshild-major-project/backend
+git clone https://github.com/rajanimaurya/sheshiled-using-agentic-ai-v2.git
+cd sheshiled-using-agentic-ai-v2/backend
 ```
 
 ### 2. Install Dependencies
@@ -280,7 +317,7 @@ Interactive API docs: `http://localhost:8000/docs`
 
 Open `frontend/index.html` in your browser.
 
-> For testing on your phone, update the API URL in `frontend/js/app.js`:
+> For phone testing, update the API URL in `frontend/js/app.js`:
 > ```js
 > const API_BASE = "http://<your-laptop-LAN-IP>:8000";
 > ```
@@ -296,51 +333,10 @@ echo "sdk.dir=/home/<your-username>/Android/Sdk" > local.properties
 ./gradlew assembleDebug
 ```
 
-APK will be at:
-```
-android/app/build/outputs/apk/debug/app-debug.apk
-```
+APK at: `android/app/build/outputs/apk/debug/app-debug.apk`
 
-Install on phone:
 ```bash
 adb install app/build/outputs/apk/debug/app-debug.apk
-```
-
----
-
-## 🔄 Detailed Workflow
-
-1. **User Registration & Setup**
-   - Register account, add trusted contacts, grant GPS and microphone permissions
-
-2. **Real-Time Monitoring**
-   - App listens for voice trigger ("Help Me") in the background
-   - Chat monitors every message for the secret distress code
-
-3. **AI & LLM Processing**
-   - LangGraph sends the user's message to 5 parallel LLM workers
-   - DeepSeek-V3 judge evaluates all responses and picks the best one
-
-4. **Alert Dispatching**
-   - GPS coordinates are fetched
-   - Email, SMS, and voice call sent simultaneously to trusted contacts
-
-5. **Safe Route Suggestion**
-   - Google Places API finds nearby safe locations
-   - Displayed on interactive map for immediate navigation
-
-**Example Alert Message:**
-```
-🚨 EMERGENCY ALERT — SheShield
-
-Name: Rajani Maurya
-Time: 2025-11-25 22:34:10
-
-📍 Location: 26.8467° N, 80.9462° E
-🗺️  Google Maps: https://maps.google.com/?q=26.8467,80.9462
-
-Please contact her immediately or reach her location.
-This alert was sent automatically by SheShield.
 ```
 
 ---
@@ -359,7 +355,7 @@ This alert was sent automatically by SheShield.
 | `GET`  | `/api/contacts/list` | List all emergency contacts |
 | `POST` | `/api/settings/secret-code` | Set secret distress code |
 
-Full interactive docs available at: `https://<your-railway-url>/docs`
+Full interactive docs: `https://<your-railway-url>/docs`
 
 ---
 
@@ -371,35 +367,12 @@ Full interactive docs available at: `https://<your-railway-url>/docs`
 # Start Command   →  uvicorn src.main:app --host 0.0.0.0 --port $PORT
 ```
 
-The `Procfile` is already configured:
+Procfile (already configured):
 ```
 web: uvicorn src.main:app --host 0.0.0.0 --port $PORT
 ```
 
-Add all environment variables in the Railway dashboard.
-
-> **Important:** Make sure `DATABASE_URL` ends with `?sslmode=require` for Railway PostgreSQL.
-
----
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Backend | FastAPI (Python 3.10+) |
-| AI Agents | LangGraph, DeepSeek-V3, LLaMA, Mistral, Qwen, Gemma |
-| LLM Provider | Together.ai |
-| Speech-to-Text | OpenAI Whisper |
-| Text-to-Speech | gTTS |
-| Voice Trigger | Vosk (Offline) |
-| SMS & Voice Call | Twilio |
-| Email Alerts | Gmail SMTP |
-| Database | PostgreSQL (SQLAlchemy) |
-| Frontend | Vanilla JS (4 modules), HTML5, CSS3 |
-| Mobile App | Capacitor (Android APK) |
-| Maps | Google Places API + Google Maps JS API |
-| Deployment | Railway |
-| Authentication | JWT |
+> **Important:** `DATABASE_URL` must end with `?sslmode=require` for Railway PostgreSQL.
 
 ---
 
@@ -416,18 +389,9 @@ Add all environment variables in the Railway dashboard.
 
 ---
 
-## 🛠️ Contribution
+## 👩‍💻 Author
 
-- Fork 🍴 → create a feature branch `git checkout -b feature-name`
-- Keep backend and frontend code modular and clean
-- Commit with clear messages: `git commit -m "feat: description"`
-- Submit a Pull Request 🚀
-
----
-
-## 📧 Contact
-
-- **Author:** Rajani Maurya
+- **Name:** Rajani Maurya
 - **University:** KMCLU, Lucknow (B.Tech CSE)
 - **Supervisor:** Dr. Bably Dolly
 - **GitHub:** [rajanimaurya](https://github.com/rajanimaurya)
@@ -440,3 +404,11 @@ Add all environment variables in the Railway dashboard.
 For **educational & research purposes only** (B.Tech Major Project). Real-world deployment must comply with privacy laws and safety regulations. In any emergency, always contact official services: **112**
 
 ---
+
+<div align="center">
+
+*Made with ❤️ for women's safety*
+
+**SheShield — Kyunki har ladki surakshit rehne ki haqdar hai**
+
+</div>
