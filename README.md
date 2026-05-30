@@ -1,24 +1,15 @@
-![GitHub Repo stars](https://img.shields.io/github/stars/rajanimaurya/sheshiled-using-agentic-ai-v2?style=social)
-![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)
-![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg)
-![LangGraph](https://img.shields.io/badge/AI-LangGraph%20Multi--Agent-blueviolet.svg)
-![Twilio](https://img.shields.io/badge/Alerts-Twilio%20SMS%2FCall-red.svg)
-![Android](https://img.shields.io/badge/Mobile-Capacitor%20Android-3DDC84.svg)
-![Railway](https://img.shields.io/badge/Deployed-Railway-black.svg)
+# SheShield – AI-Powered Women Safety & Crime Prediction App
+
+![GitHub Repo stars](https://img.shields.io/github/stars/rajanimaurya/SheShield-Predictive-Women-Safety-LLM-Location-Intelligence?style=social) ![License](https://img.shields.io/badge/License-Apache%202.0-orange.svg) ![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg) ![LLM](https://img.shields.io/badge/LLM-GPT4%2FLlama-brightgreen.svg) ![Location](https://img.shields.io/badge/Location_Intelligence-Here%20Maps%2FGoogle%20Maps-yellow.svg) ![Predictive](https://img.shields.io/badge/Predictive_Analytics-ML%20Models-red.svg)
 
 <div align="center">
 
 <img src="https://github.com/rajanimaurya/SheShield-Predictive-Women-Safety-LLM-Location-Intelligence/blob/main/images/Safety%20for%20Girls%20Logo%20Design.png?raw=true" width="200">
 
-# SheShield
-### AI-Powered Women Safety Application using Agentic AI
-
-*Real-Time SOS · Voice Chatbot · Safe Route Map · Secret Distress Code*
+**AI-Powered Women Safety**  
+*Predictive Analytics & Real-time Protection*
 
 </div>
-
----
 
 ## 📌 Table of Contents
 
