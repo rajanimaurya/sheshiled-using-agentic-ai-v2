@@ -193,6 +193,8 @@ This alert was sent automatically by SheShield.
 <img src="https://raw.githubusercontent.com/rajanimaurya/sheshiled-using-agentic-ai-v2/main/image/Screenshot%20from%202026-05-19%2015-35-26.png" width="300">
 </p>
 
+---
+
 ## 📁 Project Structure
 
 ```
